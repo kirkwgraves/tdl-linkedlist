@@ -19,28 +19,27 @@ namespace SinglyLinkedLists
             set { throw new NotImplementedException(); }
         }
 
-        private string value;
+        private string value; /* Access using "this.value" */
         public string Value 
         {
-            get { throw new NotImplementedException(); }
+            get { return value; }
         }
 
         public static bool operator <(SinglyLinkedListNode node1, SinglyLinkedListNode node2)
         {
             // This implementation is provided for your convenience.
             return node1.CompareTo(node2) < 0;
-        }
+        }                  
 
         public static bool operator >(SinglyLinkedListNode node1, SinglyLinkedListNode node2)
         {
             // This implementation is provided for your convenience.
             return node1.CompareTo(node2) > 0;
         }
-
+                                                              
         public SinglyLinkedListNode(string value)
         {
-            throw new NotImplementedException();
-
+            this.value = value;
             // Used by the visualizer:
             allNodes.Add(this);
         }
