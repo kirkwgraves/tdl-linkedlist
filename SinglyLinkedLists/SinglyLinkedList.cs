@@ -7,6 +7,10 @@ namespace SinglyLinkedLists
 {
     public class SinglyLinkedList
     {
+
+        public SinglyLinkedListNode FirstNode { get; set; }
+        public SinglyLinkedList list { get; set; }
+
         public SinglyLinkedList()
         {
             // NOTE: This constructor isn't necessary, once you've implemented the constructor below.
@@ -37,7 +41,16 @@ namespace SinglyLinkedLists
 
         public void AddLast(string value)
         {
-            throw new NotImplementedException();
+            SinglyLinkedListNode new_node = new SinglyLinkedListNode(value);
+            if (this.First() == null)
+            {
+                this.FirstNode = new SinglyLinkedListNode(value);
+            }
+            else
+            {
+                new_node.Next = null;
+            }
+
         }
 
         // NOTE: There is more than one way to accomplish this.  One is O(n).  The other is O(1).
@@ -53,7 +66,7 @@ namespace SinglyLinkedLists
 
         public string First()
         {
-            throw new NotImplementedException();
+            return FirstNode?.ToString();
         }
         
         public int IndexOf(string value)
