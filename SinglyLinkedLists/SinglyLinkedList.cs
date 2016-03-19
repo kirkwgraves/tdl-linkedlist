@@ -44,11 +44,16 @@ namespace SinglyLinkedLists
             SinglyLinkedListNode new_node = new SinglyLinkedListNode(value);
             if (this.First() == null)
             {
-                this.FirstNode = new SinglyLinkedListNode(value);
+                this.FirstNode = new_node;
             }
             else
             {
-                new_node.Next = null;
+                SinglyLinkedListNode ref_node = FirstNode;
+                while (!ref_node.IsLast())
+                {
+                    ref_node = ref_node.Next;
+                }
+                ref_node.Next = new_node;
             }
 
         }
