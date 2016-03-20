@@ -44,9 +44,9 @@ namespace SinglyLinkedLists
         public void AddLast(string value)
         {
             SinglyLinkedListNode new_node = new SinglyLinkedListNode(value);
-            if (this.First() == null)
+            if (First() == null)
             {
-                this.FirstNode = new_node;
+                FirstNode = new_node;
             }
             else
             {
@@ -68,16 +68,16 @@ namespace SinglyLinkedLists
 
         public string ElementAt(int index)
         {
-            SinglyLinkedListNode current_node = FirstNode;
+            SinglyLinkedListNode desired_node = FirstNode;
             if (this.First() == null)
             {
                 throw new ArgumentOutOfRangeException();
             }
             for (int i = 0; i < index; i++)
             {
-                current_node = current_node.Next;
+                desired_node = desired_node.Next;
             }
-            return current_node.ToString();
+            return desired_node.ToString();
         }
 
         public string First()
@@ -100,18 +100,17 @@ namespace SinglyLinkedLists
         // HINT 3: If you highlight code and right click, you can use the refactor menu to extract a method for you...
         public string Last()
         {
-            var ref_node = FirstNode;
-            if (ref_node == null)
+            LastNode = FirstNode;
+            if (LastNode == null)
             {
                 return null;
             }
             else
             {
-                while (!ref_node.IsLast())
+                while (!LastNode.IsLast())
                 {
-                    ref_node = ref_node.Next;
+                    LastNode = LastNode.Next;
                 }
-                ref_node.Next = LastNode;
                 return LastNode.ToString();
             }
         }
