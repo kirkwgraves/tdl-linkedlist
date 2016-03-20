@@ -8,6 +8,7 @@ namespace SinglyLinkedLists
     public class SinglyLinkedList
     {
 
+        private SinglyLinkedListNode LastNode { get; set; }
         public SinglyLinkedListNode FirstNode { get; set; }
         public SinglyLinkedList list { get; set; }
 
@@ -38,6 +39,7 @@ namespace SinglyLinkedLists
         {
             throw new NotImplementedException();
         }
+
 
         public void AddLast(string value)
         {
@@ -90,7 +92,7 @@ namespace SinglyLinkedLists
 
         public bool IsSorted()
         {
-            throw new NotImplementedException();
+            throw new NotImplementedException(); 
         }
 
         // HINT 1: You can extract this functionality (finding the last item in the list) from a method you've already written!
@@ -98,7 +100,20 @@ namespace SinglyLinkedLists
         // HINT 3: If you highlight code and right click, you can use the refactor menu to extract a method for you...
         public string Last()
         {
-            throw new NotImplementedException();
+            var ref_node = FirstNode;
+            if (ref_node == null)
+            {
+                return null;
+            }
+            else
+            {
+                while (!ref_node.IsLast())
+                {
+                    ref_node = ref_node.Next;
+                }
+                ref_node.Next = LastNode;
+                return LastNode.ToString();
+            }
         }
 
         public void Remove(string value)
