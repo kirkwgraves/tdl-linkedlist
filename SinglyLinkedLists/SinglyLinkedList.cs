@@ -17,10 +17,32 @@ namespace SinglyLinkedLists
             // NOTE: This constructor isn't necessary, once you've implemented the constructor below.
         }
 
+        public override string ToString()
+        {
+            if (this.First() == null)
+            {
+                // If list is empty, return string representation of empty array
+                return "{ }";
+            }
+            else
+            {
+                return this.ToString();
+ 
+            }
+        }
+
+
         // READ: http://msdn.microsoft.com/en-us/library/aa691335(v=vs.71).aspx
         public SinglyLinkedList(params object[] values)
         {
-            throw new NotImplementedException();
+            if (values.Length == 0)
+            {
+                throw new ArgumentException();
+            }
+            for (int i = 0; i < values.Length; i++)
+            { 
+                AddLast(values[i].ToString());
+            }
         }
 
         // READ: http://msdn.microsoft.com/en-us/library/6x16t2tx.aspx
@@ -63,7 +85,23 @@ namespace SinglyLinkedLists
         // NOTE: There is more than one way to accomplish this.  One is O(n).  The other is O(1).
         public int Count()
         {
-            throw new NotImplementedException();
+            if (First() == null)
+            {
+                return 0;
+            }
+            else
+            {
+                int list_length = 1;
+                var ref_node = FirstNode;
+                // Complexity at this point is O(n)
+                // What would O(1) implementation look like?
+                while (!ref_node.IsLast())
+                {
+                    ref_node = ref_node.Next;
+                    list_length++;
+                }
+                return list_length;
+            }
         }
 
         public string ElementAt(int index)
@@ -113,6 +151,15 @@ namespace SinglyLinkedLists
                 }
                 return LastNode.ToString();
             }
+        }
+
+        public string ToString(SinglyLinkedListNode[] values)
+        {
+            for (int i = 0; i < values.Length; i++)
+            {
+                values[i].ToString();
+            }
+            return values.ToString();
         }
 
         public void Remove(string value)
