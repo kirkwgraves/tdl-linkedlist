@@ -26,11 +26,19 @@ namespace SinglyLinkedLists
             }
             else
             {
-                return this.ToString();
- 
+                var list_as_array = this.ToArray();
+                var strBuilder = new StringBuilder();
+                strBuilder.Append("{ ");
+                foreach (var item in list_as_array)
+                {
+                    strBuilder.Append("\"" + item + "\"");
+                }
+                strBuilder.Append(" }");
+                return strBuilder.ToString();
             }
+            
         }
-
+        
 
         // READ: http://msdn.microsoft.com/en-us/library/aa691335(v=vs.71).aspx
         public SinglyLinkedList(params object[] values)
@@ -85,7 +93,7 @@ namespace SinglyLinkedLists
         // NOTE: There is more than one way to accomplish this.  One is O(n).  The other is O(1).
         public int Count()
         {
-            if (First() == null)
+            if (this.First() == null)
             {
                 return 0;
             }
@@ -174,7 +182,22 @@ namespace SinglyLinkedLists
 
         public string[] ToArray()
         {
-            throw new NotImplementedException();
+            SinglyLinkedListNode new_node = this.FirstNode;
+            string[] empty_array = new string[] { };
+            string[] new_array = new string[this.Count()];
+
+            if (this.Count() == 0)
+            {
+                return empty_array;
+            }
+            else
+            {
+                for (int i = 0; i < this.Count(); i++)
+                {
+                    new_array[i] = this.ElementAt(i);
+                }
+                return new_array;
+            }
         }
     }
 }
