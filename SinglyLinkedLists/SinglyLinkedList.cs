@@ -29,9 +29,27 @@ namespace SinglyLinkedLists
                 var list_as_array = this.ToArray();
                 var strBuilder = new StringBuilder();
                 strBuilder.Append("{ ");
+                if (list_as_array.Length == 1)
+                {
+                    strBuilder.Append("\"" + list_as_array[0] + "\"");
+                    strBuilder.Append(" }");
+                    return strBuilder.ToString();
+                }
+                int counter = 1;
+                int length = list_as_array.Length;
                 foreach (var item in list_as_array)
                 {
-                    strBuilder.Append("\"" + item + "\"");
+                    
+                    if (counter == length)
+                    {
+                        strBuilder.Append("\"" + item + "\"");
+
+                    }
+                    else
+                    {
+                        strBuilder.Append("\"" + item + "\", ");
+                    }
+                    counter++;
                 }
                 strBuilder.Append(" }");
                 return strBuilder.ToString();
@@ -182,11 +200,10 @@ namespace SinglyLinkedLists
 
         public string[] ToArray()
         {
-            SinglyLinkedListNode new_node = this.FirstNode;
             string[] empty_array = new string[] { };
             string[] new_array = new string[this.Count()];
 
-            if (this.Count() == 0)
+            if (this.First() == null)
             {
                 return empty_array;
             }
