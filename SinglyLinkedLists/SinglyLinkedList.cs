@@ -29,28 +29,19 @@ namespace SinglyLinkedLists
                 var list_as_array = this.ToArray();
                 var strBuilder = new StringBuilder();
                 strBuilder.Append("{ ");
-                if (list_as_array.Length == 1)
-                {
-                    strBuilder.Append("\"" + list_as_array[0] + "\"");
-                    strBuilder.Append(" }");
-                    return strBuilder.ToString();
-                }
-                int counter = 1;
                 int length = list_as_array.Length;
-                foreach (var item in list_as_array)
+                for (int i = 0; i <= length - 1; i++)
                 {
-                    
-                    if (counter == length)
+                    if (i == length - 1)
                     {
-                        strBuilder.Append("\"" + item + "\"");
-
+                        strBuilder.Append("\"" + list_as_array[i] + "\"");
                     }
                     else
                     {
-                        strBuilder.Append("\"" + item + "\", ");
+                        strBuilder.Append("\"" + list_as_array[i] + "\", ");
                     }
-                    counter++;
                 }
+                
                 strBuilder.Append(" }");
                 return strBuilder.ToString();
             }
@@ -80,7 +71,25 @@ namespace SinglyLinkedLists
 
         public void AddAfter(string existingValue, string value)
         {
-            throw new NotImplementedException();
+            int location = IndexOf(existingValue);
+            if (location == -1)
+            {
+                throw new ArgumentException();
+            }
+            var ref_list = new SinglyLinkedList();
+            for (int i = 0; i < Count(); i++)
+            {
+                ref_list.AddLast(ElementAt(i));
+                if (location == i) // Find the correct position to add the new node value
+                {
+                    ref_list.AddLast(value);
+                }
+            }
+            FirstNode = new SinglyLinkedListNode(ref_list.First()); // 
+            for (int j = 1; j < ref_list.Count(); j++)
+            {
+                this.AddLast(ref_list.ElementAt(j));
+            }
         }
 
         public void AddFirst(string value)
@@ -151,7 +160,22 @@ namespace SinglyLinkedLists
         
         public int IndexOf(string value)
         {
-            throw new NotImplementedException();
+            int counter = 0;
+            var ref_node = FirstNode;
+            if (ref_node == null)
+            {
+                return -1;
+            }
+            while (!(ref_node.Value == value))
+            {
+                if (ref_node.Next == null)
+                {
+                    return -1;
+                }
+                ref_node = ref_node.Next;
+                counter++;
+            }
+            return counter;
         }
 
         public bool IsSorted()
