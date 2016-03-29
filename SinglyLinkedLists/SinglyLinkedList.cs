@@ -63,29 +63,54 @@ namespace SinglyLinkedLists
         }
 
         // READ: http://msdn.microsoft.com/en-us/library/6x16t2tx.aspx
+
         public string this[int i]
         {
-            get { throw new NotImplementedException(); }
-            set { throw new NotImplementedException(); }
+            
+            get
+            {
+                return this.ElementAt(i);
+            }
+            set
+            {
+                var placeholder = new SinglyLinkedList();
+                for (int j = 0; j < this.Count(); j++)
+                {
+                    if (i == j)
+                    {
+                        placeholder.AddLast(value);
+                    }
+                    else
+                    {
+                        placeholder.AddLast(this.ElementAt(j));
+                    }
+                }
+                this.FirstNode = new SinglyLinkedListNode(placeholder.First());
+                for (int k = 1; k < placeholder.Count(); k++)
+                {
+                    this.AddLast(placeholder.ElementAt(k));
+                }
+
+            }
         }
 
         public void AddAfter(string existingValue, string value)
         {
-            int location = IndexOf(existingValue);
+            int location = this.IndexOf(existingValue);
             if (location == -1)
             {
                 throw new ArgumentException();
             }
             var ref_list = new SinglyLinkedList();
-            for (int i = 0; i < Count(); i++)
+            for (int i = 0; i < this.Count(); i++)
             {
-                ref_list.AddLast(ElementAt(i));
+                ref_list.AddLast(this.ElementAt(i));
                 if (location == i) // Find the correct position to add the new node value
                 {
                     ref_list.AddLast(value);
                 }
             }
-            FirstNode = new SinglyLinkedListNode(ref_list.First()); // 
+            this.FirstNode = new SinglyLinkedListNode(ref_list.First()); // 
             for (int j = 1; j < ref_list.Count(); j++)
             {
                 this.AddLast(ref_list.ElementAt(j));
@@ -94,7 +119,17 @@ namespace SinglyLinkedLists
 
         public void AddFirst(string value)
         {
-            throw new NotImplementedException();
+            SinglyLinkedListNode new_node = new SinglyLinkedListNode(value);
+            if (First() == null)
+            {
+                FirstNode = new_node;
+            }
+            else
+            {
+                var currentFirstNode = FirstNode;
+                new_node.Next = currentFirstNode;
+                FirstNode = new_node;
+            }
         }
 
 
@@ -142,7 +177,7 @@ namespace SinglyLinkedLists
         public string ElementAt(int index)
         {
             SinglyLinkedListNode desired_node = FirstNode;
-            if (this.First() == null)
+            if (First() == null)
             {
                 throw new ArgumentOutOfRangeException();
             }
