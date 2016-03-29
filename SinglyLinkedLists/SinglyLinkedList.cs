@@ -215,7 +215,17 @@ namespace SinglyLinkedLists
 
         public bool IsSorted()
         {
-            throw new NotImplementedException(); 
+            if (this.First() != null)
+            {
+                for (int i = 0; i < this.Count()-1; i++)
+                {
+                    if (String.Compare(this.ElementAt(i), this.ElementAt(i+1), StringComparison.CurrentCulture) == 1)
+                    {
+                        return false;
+                    }
+                }
+            }
+            return true;
         }
 
         // HINT 1: You can extract this functionality (finding the last item in the list) from a method you've already written!
@@ -249,12 +259,50 @@ namespace SinglyLinkedLists
 
         public void Remove(string value)
         {
-            throw new NotImplementedException();
+            int location = this.IndexOf(value);
+            var placeholder = new SinglyLinkedList();
+            for (int i = 0; i < this.Count(); i ++)
+            {
+                if (i != location)
+                {
+                    placeholder.AddLast(ElementAt(i));
+                }
+            }
+            this.FirstNode = new SinglyLinkedListNode(placeholder.First());
+            // Assign FirstNode to be the new list.
+            for (int j = 1; j < placeholder.Count(); j++)
+            {
+                // Then add the remaining values in the list.
+                this.AddLast(placeholder.ElementAt(j));
+            }
         }
 
         public void Sort()
         {
-            throw new NotImplementedException();
+            if (this.Count() < 2)
+            {
+                return;
+            }
+            else
+            {
+                while (!this.IsSorted())
+                {
+                    var ref_node = this.FirstNode;
+                    var next_node = ref_node.Next;
+                    for (int i = 1; i < this.Count(); i++)
+                    {
+                        if (ref_node.Value.CompareTo(next_node.Value) > 0)
+                        {
+                            var temp = ref_node.Next.Value;
+                            next_node.Value = ref_node.Value;
+                            ref_node.Value = temp;
+                        }
+                        ref_node = ref_node.Next;
+                        next_node = next_node.Next;
+                    }
+                }
+            }
+
         }
 
         public string[] ToArray()
