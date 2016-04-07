@@ -54,7 +54,7 @@ namespace SinglyLinkedLists
         {
             if (values.Length == 0)
             {
-                throw new ArgumentException();
+                throw new ArgumentException(); 
             }
             for (int i = 0; i < values.Length; i++)
             { 
@@ -279,7 +279,9 @@ namespace SinglyLinkedLists
 
         public void Sort()
         {
-            if (this.Count() < 2)
+            int length = this.Count();
+
+            if (length < 2)
             {
                 return;
             }
@@ -289,7 +291,7 @@ namespace SinglyLinkedLists
                 {
                     var ref_node = this.FirstNode;
                     var next_node = ref_node.Next;
-                    for (int i = 1; i < this.Count(); i++)
+                    for (int i = 1; i < length; i++)
                     {
                         if (ref_node.Value.CompareTo(next_node.Value) > 0)
                         {
@@ -300,6 +302,8 @@ namespace SinglyLinkedLists
                         ref_node = ref_node.Next;
                         next_node = next_node.Next;
                     }
+                    // Decrement the length of the list to be sorted, since elements are already sorted.
+                    length--;
                 }
             }
 
